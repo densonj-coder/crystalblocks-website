@@ -1,384 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crystal Blocks - Premium Block Puzzle Game</title>
-    <meta name="description" content="Crystal Blocks is a premium block puzzle game with stunning crystal worlds, daily challenges, tournaments, and PvP. Available on the App Store.">
-    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --bg:#060a14;--bg2:#0c1224;
-            --accent:#62d4f7;--accent2:#a78bfa;--accent3:#34d399;--gold:#f5c542;
-            --text:#e2e8f0;--text2:#94a3b8;--text3:#475569;
-            --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
-            --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
-        }
-        html{scroll-behavior:smooth}
-        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Crystal Blocks — Premium Block Puzzle Game</title>
+<meta name="description" content="Crystal Blocks: a premium block puzzle game with stunning crystal worlds, daily challenges, tournaments, and PvP battles. Free on the App Store.">
+<meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+<meta property="og:title" content="Crystal Blocks — Block Puzzle Game">
+<meta property="og:description" content="Drop. Clear. Combo. Repeat. Six breathtaking crystal worlds await.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(42px,7vw,68px);font-weight:700;letter-spacing:-2.5px;line-height:.98;margin-bottom:22px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero-p{font-size:16px;color:var(--text2);line-height:1.7;margin-bottom:32px;max-width:420px}
+.hero-act{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:44px}
+.btn-g{display:inline-flex;align-items:center;gap:7px;padding:14px 28px;background:var(--gold);color:var(--bg);font-weight:700;font-size:14px;border-radius:100px;text-decoration:none;transition:all .22s;box-shadow:0 4px 20px rgba(233,196,106,.18)}
+.btn-g:hover{background:var(--gold-b);transform:translateY(-2px);box-shadow:0 8px 28px rgba(233,196,106,.3)}
+.btn-g svg{width:17px;height:17px}
+.btn-o{display:inline-flex;align-items:center;gap:7px;padding:14px 24px;background:transparent;color:var(--text);font-weight:600;font-size:14px;border-radius:100px;text-decoration:none;border:1.5px solid var(--border2);transition:all .22s}
+.btn-o:hover{background:var(--glass2);border-color:rgba(255,255,255,.18);transform:translateY(-2px)}
+.hero-trust{display:flex;gap:32px;padding-top:28px;border-top:1px solid var(--border)}
+.tr-i{text-align:left}
+.tr-n{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--gold)}
+.tr-l{font-size:10px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.7px;margin-top:1px}
 
-        /* âââ Canvas Particles âââ */
-        #particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5}
+/* Hero visual */
+.hero-vis{position:absolute;right:-20px;top:50%;transform:translateY(-50%);z-index:1;width:480px;height:480px}
+.hv-glow{position:absolute;inset:-25%;border-radius:50%;background:radial-gradient(circle,rgba(123,45,139,.18),rgba(233,196,106,.06),transparent 70%);filter:blur(70px);animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.hv-gem{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;filter:drop-shadow(0 0 50px rgba(233,196,106,.25));animation:gfloat 6s ease-in-out infinite}
+@keyframes gfloat{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-14px)}}
+.fg{position:absolute;opacity:.5;animation:fgm 9s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(255,255,255,.12))}
+.fg:nth-child(3){width:36px;top:12%;right:18%;animation-delay:0s;animation-duration:8s}
+.fg:nth-child(4){width:30px;bottom:18%;right:28%;animation-delay:-2.5s;animation-duration:10s}
+.fg:nth-child(5){width:24px;top:55%;right:4%;animation-delay:-5s;animation-duration:7s;opacity:.35}
+.fg:nth-child(6){width:20px;top:22%;right:50%;animation-delay:-7s;animation-duration:11s;opacity:.25}
+@keyframes fgm{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-18px) rotate(4deg)}70%{transform:translateY(10px) rotate(-3deg)}}
 
-        /* âââ Nav âââ */
-        nav{position:fixed;top:0;width:100%;z-index:200;padding:14px 0;transition:all .4s cubic-bezier(.4,0,.2,1)}
-        nav.scrolled{background:rgba(6,10,20,0.92);backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border)}
-        .nav-inner{max-width:1140px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
-        .logo{font-size:18px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .nav-links{display:flex;gap:32px;list-style:none}
-        .nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.3px;transition:color .25s}
-        .nav-links a:hover{color:var(--text)}
-        .nav-cta{padding:8px 20px;background:linear-gradient(135deg,var(--accent),#3b82f6);color:#fff;font-weight:600;font-size:12px;border-radius:100px;text-decoration:none;letter-spacing:0.3px;transition:transform .2s,box-shadow .2s}
-        .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(98,212,247,0.3)}
+/* Worlds */
+.worlds{padding:110px 0;position:relative;overflow:hidden}
+.worlds-hd{text-align:center;margin-bottom:48px;padding:0 24px}
+.stag{display:inline-block;font-size:10.5px;font-weight:700;color:var(--gold);letter-spacing:1.8px;text-transform:uppercase;margin-bottom:12px}
+.stitle{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.8vw,38px);font-weight:700;letter-spacing:-1.2px;margin-bottom:8px}
+.sdesc{color:var(--text2);font-size:14.5px;max-width:420px;margin:0 auto;line-height:1.6}
 
-        /* âââ Hero âââ */
-        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:140px 24px 100px}
-        .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(98,212,247,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 30% 70%,rgba(167,139,250,0.05) 0%,transparent 50%),radial-gradient(ellipse 50% 50% at 80% 20%,rgba(52,211,153,0.04) 0%,transparent 50%)}
-        .hero-glow{position:absolute;width:600px;height:600px;top:10%;left:50%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(98,212,247,0.08),transparent 70%);filter:blur(80px);animation:pulse 8s ease-in-out infinite}
-        @keyframes pulse{0%,100%{opacity:0.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.15)}}
-        .hero-content{position:relative;z-index:10;max-width:680px}
-        .badge{display:inline-flex;align-items:center;gap:6px;margin-bottom:28px;padding:7px 18px;border-radius:100px;font-size:11px;font-weight:600;color:var(--gold);border:1px solid rgba(245,197,66,0.25);background:rgba(245,197,66,0.06);letter-spacing:1.2px;text-transform:uppercase}
-        .badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite}
-        @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-        .hero h1{font-size:clamp(48px,8vw,80px);font-weight:900;letter-spacing:-3px;line-height:0.95;margin-bottom:24px}
-        .hero h1 .grad{background:linear-gradient(135deg,#fff 0%,var(--accent) 30%,var(--accent2) 60%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:shimmer 6s ease-in-out infinite}
-        @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-        .hero-sub{font-size:17px;font-weight:400;color:var(--text2);max-width:480px;margin:0 auto 40px;line-height:1.7}
-        .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-        .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:linear-gradient(135deg,var(--accent),#3b82f6);color:#fff;font-weight:700;font-size:15px;border-radius:100px;text-decoration:none;transition:all .25s;box-shadow:0 4px 28px rgba(98,212,247,0.2),inset 0 1px 0 rgba(255,255,255,0.15)}
-        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(98,212,247,0.35),inset 0 1px 0 rgba(255,255,255,0.15)}
-        .btn-primary svg{width:20px;height:20px}
-        .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:var(--glass2);color:var(--text);font-weight:600;font-size:15px;border-radius:100px;text-decoration:none;border:1px solid var(--border2);transition:all .25s;backdrop-filter:blur(8px)}
-        .btn-ghost:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15);transform:translateY(-2px)}
-        .hero-stats{display:flex;justify-content:center;gap:40px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border)}
-        .hero-stat{text-align:center}
-        .hero-stat-num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .hero-stat-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.w-track{display:flex;gap:18px;padding:0 max(24px,calc((100vw - 1100px)/2));overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;cursor:grab}
+.w-track::-webkit-scrollbar{display:none}
+.w-track:active{cursor:grabbing}
+.wc{flex:0 0 300px;scroll-snap-align:start;position:relative;height:400px;border-radius:18px;overflow:hidden;border:1px solid var(--border);transition:all .45s cubic-bezier(.16,1,.3,1);background:var(--bg2)}
+.wc:hover{border-color:var(--border2);transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.45)}
+.wc-bg{position:absolute;inset:0;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.wc:hover .wc-bg{transform:scale(1.05)}
+.wc-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,10,30,.25) 0%,rgba(13,10,30,0) 35%,rgba(13,10,30,.65) 72%,rgba(13,10,30,.93) 100%)}
+.wc-gem{position:absolute;top:36%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;z-index:2;filter:drop-shadow(0 0 35px rgba(255,255,255,.18));transition:all .45s cubic-bezier(.16,1,.3,1)}
+.wc:hover .wc-gem{transform:translate(-50%,-55%) scale(1.1);filter:drop-shadow(0 0 45px rgba(233,196,106,.3))}
+.wc-gem img{width:100%;height:100%;object-fit:contain}
+.wc-info{position:absolute;bottom:0;left:0;right:0;padding:22px 20px;z-index:3}
+.wc-num{font-size:9.5px;font-weight:700;color:var(--gold-d);letter-spacing:1.3px;text-transform:uppercase;margin-bottom:3px}
+.wc-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.4px;margin-bottom:5px}
+.wc-desc{font-size:12px;color:var(--text2);line-height:1.5}:var(--text2);line-height:1.5}
+.wc-lvl{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:3px 9px;border-radius:100px;background:var(--glass2);border:1px solid var(--border);font-size:9.5px;color:var(--text2);font-weight:600}
 
-        /* âââ Features âââ */
-        .features{padding:120px 24px;position:relative}
-        .features::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-        .container{max-width:1140px;margin:0 auto}
-        .section-header{text-align:center;margin-bottom:64px}
-        .section-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;padding:6px 14px;border-radius:100px;background:rgba(98,212,247,0.06);border:1px solid rgba(98,212,247,0.12)}
-        .section-title{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px}
-        .section-desc{color:var(--text2);font-size:16px;max-width:500px;margin:0 auto}
-        .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-        .f-card{position:relative;background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:36px 28px;transition:all .35s cubic-bezier(.4,0,.2,1);overflow:hidden}
-        .f-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:background .35s}
-        .f-card:hover{border-color:var(--border2);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-        .f-card:hover::before{background:linear-gradient(90deg,transparent,rgba(98,212,247,0.2),transparent)}
-        .f-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;position:relative}
-        .f-icon.blue{background:rgba(98,212,247,0.08);border:1px solid rgba(98,212,247,0.15)}
-        .f-icon.purple{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.15)}
-        .f-icon.green{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.15)}
-        .f-icon.gold{background:rgba(245,197,66,0.08);border:1px solid rgba(245,197,66,0.15)}
-        .f-icon.red{background:rgba(251,113,133,0.08);border:1px solid rgba(251,113,133,0.15)}
-        .f-icon.teal{background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.15)}
-        .f-card h3{font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:-0.3px}
-        .f-card p{color:var(--text2);font-size:13.5px;line-height:1.65}
+/* World card colors */
+.wc[data-w="ruby"] .wc-bg{background:linear-gradient(145deg,#2a0a0e,#1a0520)}
+.wc[data-w="emerald"] .wc-bg{background:linear-gradient(145deg,#081a10,#0a1520)}
+.wc[data-w="sapphire"] .wc-bg{background:linear-gradient(145deg,#081420,#0a0a1e)}
+.wc[data-w="amethyst"] .wc-bg{background:linear-gradient(145deg,#1a082a,#120a20)}
+.wc[data-w="topaz"] .wc-bg{background:linear-gradient(145deg,#1a1408,#1a0a10)}
+.wc[data-w="diamond"] .wc-bg{background:linear-gradient(145deg,#121828,#0e1020)}
 
-        /* âââ Worlds âââ */
-        .worlds{padding:120px 24px;position:relative;overflow:hidden}
-        .worlds-bg{position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(12,18,36,1) 30%,rgba(12,18,36,1) 70%,var(--bg) 100%)}
-        .worlds .container{position:relative;z-index:2}
-        .worlds-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:56px}
-        .w-card{position:relative;aspect-ratio:3/4.5;border-radius:18px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1)}
-        .w-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,0.15);box-shadow:0 24px 60px rgba(0,0,0,0.4)}
-        .w-card-bg{position:absolute;inset:0;transition:transform .6s cubic-bezier(.4,0,.2,1)}
-        .w-card:hover .w-card-bg{transform:scale(1.08)}
-        .w-card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.6) 80%,rgba(0,0,0,0.85) 100%)}
-        .w-card-content{position:absolute;bottom:0;left:0;right:0;padding:16px 14px}
-        .w-card-num{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:0.5;margin-bottom:2px}
-        .w-card-name{font-size:13px;font-weight:700;letter-spacing:-0.2px}
-        .w-card-sub{font-size:10px;color:var(--text2);margin-top:2px}
-        .w-stats{display:flex;justify-content:center;gap:56px;margin-top:56px}
-        .w-stat-num{font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-        .w-stat-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-top:4px}
+.scroll-h{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:20px;font-size:11.5px;color:var(--text3);font-weight:500}
+.scroll-h svg{width:14px;height:14px;animation:nudge 2.2s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
 
-        /* âââ Crystal Pass âââ */
-        .pass{padding:120px 24px}
-        .pass-card{max-width:900px;margin:0 auto;background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(98,212,247,0.04));border:1px solid rgba(167,139,250,0.15);border-radius:24px;padding:60px 48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
-        .pass-card::before{content:'';position:absolute;top:-50%;right:-20%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,0.08),transparent);filter:blur(60px)}
-        .pass-content{position:relative;z-index:2}
-        .pass-tag{display:inline-block;font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;padding:5px 12px;border-radius:100px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2)}
-        .pass-title{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
-        .pass-desc{color:var(--text2);font-size:14px;margin-bottom:28px;line-height:1.7}
-        .pass-perks{list-style:none;display:flex;flex-direction:column;gap:12px}
-        .pass-perks li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text2)}
-        .pass-perks li::before{content:'';width:20px;height:20px;border-radius:50%;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center}
-        .pass-visual{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
-        .pass-gem{width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(98,212,247,0.1));border:1px solid rgba(167,139,250,0.2);display:flex;align-items:center;justify-content:center;font-size:72px;animation:float 4s ease-in-out infinite;box-shadow:0 0 80px rgba(167,139,250,0.1)}
-        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* Features */
+.features{padding:110px 24px;position:relative}
+.fg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:48px}
+.fc{position:relative;padding:30px 26px;border-radius:16px;border:1px solid var(--border);background:var(--glass);transition:all .35s cubic-bezier(.16,1,.3,1);overflow:hidden}
+.fc::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);transition:all .35s}
+.fc:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 16px 40px rgba(0,0,0,.28)}
+.fc:hover::after{background:linear-gradient(90deg,transparent,rgba(233,196,106,.12),transparent)}
+.fc-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:18px}
+.ic-p{background:rgba(123,45,139,.1);border:1px solid rgba(123,45,139,.18)}
+.ic-g{background:rgba(233,196,106,.08);border:1px solid rgba(233,196,106,.16)}
+.ic-b{background:rgba(69,123,157,.1);border:1px solid rgba(69,123,157,.18)}
+.ic-r{background:rgba(230,57,70,.08);border:1px solid rgba(230,57,70,.16)}
+.ic-e{background:rgba(45,106,79,.08);border:1px solid rgba(45,106,79,.16)}
+.ic-t{background:rgba(45,212,191,.07);border:1px solid rgba(45,212,191,.14)}
+.fc h3{font-family:'Space Grotesk',sans-serif;font-size:15.5px;font-weight:700;margin-bottom:6px;letter-spacing:-.2px}
+.fc p{color:var(--text2);font-size:13px;line-height:1.58}
 
-        /* âââ CTA âââ */
-        .cta{padding:80px 24px 120px}
-        .cta-box{max-width:800px;margin:0 auto;text-align:center;background:linear-gradient(135deg,rgba(98,212,247,0.04),rgba(167,139,250,0.04));border:1px solid var(--border);border-radius:28px;padding:72px 40px;position:relative;overflow:hidden}
-        .cta-box::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:500px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(98,212,247,0.06),transparent);filter:blur(60px)}
-        .cta-box h2{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-1px;margin-bottom:12px;position:relative;z-index:2}
-        .cta-box p{color:var(--text2);font-size:16px;margin-bottom:32px;position:relative;z-index:2}
+/* Crystal Pass */
+.pass{padding:110px 24px}
+.pass-box{position:relative;max-width:880px;margin:0 auto;border-radius:22px;overflow:hidden;border:1px solid rgba(123,45,139,.16);background:linear-gradient(135deg,rgba(123,45,139,.05),rgba(233,196,106,.02))}
+.pass-box::before{content:'';position:absolute;top:-30%;right:-10%;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(123,45,139,.1),transparent 70%);filter:blur(80px)}
+.pass-in{display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;padding:50px 44px;position:relative;z-index:2}
+.pass-tg{display:inline-block;font-size:9.5px;font-weight:700;color:var(--gold);letter-spacing:1.4px;text-transform:uppercase;margin-bottom:12px;padding:4px 11px;border-radius:100px;background:rgba(123,45,139,.1);border:1px solid rgba(123,45,139,.22)}
+.pass-tt{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.8px;margin-bottom:8px}
+.pass-de{color:var(--text2);font-size:13.5px;margin-bottom:22px;line-height:1.6;max-width:380px}
+.pass-ul{list-style:none;display:grid;gap:9px}
+.pass-ul li{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--text2)}
+.pass-ul li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.pass-gw{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,rgba(123,45,139,.12),rgba(233,196,106,.06));border:1px solid rgba(123,45,139,.18);display:flex;align-items:center;justify-content:center;animation:gfloat 6s ease-in-out infinite;box-shadow:0 0 60px rgba(123,45,139,.1)}
+.pass-gw img{width:90px;height:90px;object-fit:contain}
 
-        /* âââ Footer âââ */
-        footer{padding:48px 24px;border-top:1px solid var(--border)}
-        .footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-        .footer-links{display:flex;gap:28px;list-style:none}
-        .footer-links a{color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
-        .footer-links a:hover{color:var(--text2)}
-        .footer-copy{font-size:13px;color:var(--text3)}
+/* CTA */
+.cta{padding:60px 24px 110px}
+.cta-bx{max-width:680px;margin:0 auto;text-align:center;position:relative;padding:56px 36px;border-radius:22px;background:linear-gradient(135deg,rgba(233,196,106,.03),rgba(123,45,139,.03));border:1px solid var(--border);overflow:hidden}
+.cta-bx::before{content:'';position:absolute;top:-35%;left:50%;transform:translateX(-50%);width:380px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(233,196,106,.05),transparent);filter:blur(70px)}
+.cta-bx h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.5vw,34px);font-weight:700;letter-spacing:-.8px;margin-bottom:10px;position:relative;z-index:2}
+.cta-bx p{color:var(--text2);font-size:14.5px;margin-bottom:24px;position:relative;z-index:2}
 
-        /* âââ Responsive âââ */
-        @media(max-width:1024px){.features-grid{grid-template-columns:repeat(2,1fr)}.pass-card{grid-template-columns:1fr;text-align:center}.pass-perks{align-items:center}}
-        @media(max-width:768px){
-            .nav-links{display:none}.nav-cta{display:none}
-            .worlds-grid{grid-template-columns:repeat(3,1fr)}
-            .features-grid{grid-template-columns:1fr}
-            .hero-stats{gap:24px}
-            .w-stats{gap:32px}
-            section,.features,.worlds,.pass,.cta{padding:80px 16px}
-            .pass-card{padding:40px 24px}
-            .cta-box{padding:48px 24px}
-        }
-        @media(max-width:480px){
-            .worlds-grid{grid-template-columns:repeat(2,1fr)}
-            .hero-stats{flex-direction:column;gap:16px}
-        }
-    </style>
+/* Footer */
+footer{padding:36px 24px;border-top:1px solid var(--border)}
+.ft-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.ft-lk{display:flex;gap:22px;list-style:none}
+.ft-lk a{color:var(--text3);text-decoration:none;font-size:12px;font-weight:500;transition:color .2s}
+.ft-lk a:hover{color:var(--text2)}
+.ft-cp{font-size:12px;color:var(--text3)}
+
+/* Responsive */
+@media(max-width:1024px){
+  .hero-vis{position:relative;right:auto;top:auto;transform:none;width:100%;height:280px;margin-top:36px}
+  .hero{flex-direction:column;text-align:center;padding:120px 24px 50px}
+  .hero-c{max-width:100%}
+  .hero-p{margin:0 auto 32px}
+  .hero-act{justify-content:center}
+  .hero-trust{justify-content:center}
+  .tr-i{text-align:center}
+  .fg-grid{grid-template-columns:1fr}
+  .pass-in{grid-template-columns:1fr;text-align:center}
+  .pass-gw{margin:0 auto}
+  .pass-de{margin:0 auto 22px}
+}
+@media(max-width:768px){
+  .nv-lk{display:none}
+  .wc{flex:0 0 260px;height:350px}
+  .hero-trust{gap:20px;flex-wrap:wrap}
+  .worlds,.features,.pass{padding:80px 0}
+  .features,.pass,.cta{padding-left:24px;padding-right:24px}
+}
+@media(max-width:480px){
+  .wc{flex:0 0 230px;height:310px}
+  .hero-trust{flex-direction:column;gap:10px;align-items:center}
+  .pass-in{padding:32px 20px}
+  .cta-bx{padding:36px 18px}
+  .wc-gem{width:70px;height:70px}
+}
+</style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
+<div class="amb"><i></i><i></i><i></i></div>
 
-<nav id="nav">
-    <div class="nav-inner">
-        <div class="logo">Crystal Blocks</div>
-        <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#worlds">Worlds</a></li>
-            <li><a href="#pass">Crystal Pass</a></li>
-            <li><a href="privacy.html">Privacy</a></li>
-            <li><a href="terms.html">Terms</a></li>
-            <li><a href="support.html">Support</a></li>
-        </ul>
-        <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="nav-cta">Download</a>
-    </div>
+<nav class="nv" id="nav">
+<div class="container nv-in">
+  <a href="/" class="nv-br">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH6gQHESYLWrSf1gAAEQpJREFUaN7dmnnwbVdV5z9r73POnX7DG/KmhJcQDEkzZAQqGBBRU9Kdhi6ECFYYLAJI4gCo5R/ptpvmD7u72rm1S0N3l0WrVVQrrZaoSWwilELoFpBnCCk0BEh8CW/4vd907zlnT2v1H+e+5EFLSAj6R++qXefee+ruvb57Td+1zhGe5rDhIud8lXNvy1Nc76kO980KbSD2vQjpcYEzsAvEs8AMMUWs/MMBeMoHZHbO/z7xq8bs8y6nvhGpVyWEaZISQ5W31y69OLF6ZYZtY/pW4YXABvC5b61WnvRaj5nKVcBlwI/d6s3rEabNNcCVpHCUHFal5IgrJ3H6ZRtPPsWK+1t51rWbyC2FtwC3AzUm3yIUTwmA2bWo/G9xd79+nWb6HYwn30eOV3WbZw51W5uj3C2cpiBGMadpMZ65R2fnNZ+ufb7LYrxHrnjuCS78Azu75LcCxJMHcPfbaUenGce9R4TyRhW9sd/dOfqVh75QbZ95hJQXIlZEREVAKofbM6394UMrZbQ6PUFT/7mI+wCeT/CB3TlvW0de8jf/OADsnncA4gjhQoRbFpunX338yw/s2dl9WNyoq6Z7XDWZObwT8eJcXiRSm6msYt/axGb7VoRmZGL+CxT3OxT5HXL1IJayvPbpgXhCAI/Z/TteBm+8+GJM3r7YOP3aLz7wmb2RE82Bb1ut1y/YU41mE+dMxUJPiZG0G+jOLCiLZGNX6dqeFa3Wpgo1JL9Nko9adr9Baj6GHZuL+0Hkde//pgBUT3Sz3PU6/GUvMvvCsQsE9+ZuZ/P7jx8/drjZv1M/88pnV9Oj54ubjIXYQbeDteA7aBpP0zj6jR3KovgUg3kapalVzPaR5QZMLjDK+6Vc/vuM7jtt9ngueSq+8YQAaBz20KcPUvu3pHbnzadOfO7o+FDyh6+9SppDR6BuwCK4AlQIFU5qJDucczhTgtulhCQaeu8mtWdSK+Ao7gVS/D5VORS2+M2N/7n/4aOv2QAQsycP4v9JZPbTYO9BMCNudXsp7gcsl7dsb3z5wmpvVx359udJc/4zsWYFpB7myMHEw7RBpg2Ma2TiqVfHjFbHSG3krocQoTbHRLyMpcHJs3DV2yvnfmT/1rOfxY8fHIz6m9WAGTBHWDGz/3L92I7uuwHhh7rNExcXOS37n3ch9eHD4BsEP/xJMjiBUQVuBM4BHagi45p6NkFyIe1GyrzDj8dI44SpeLIXij9fin+T4Jr5ZZf+ymd+e+eLL72pF3uSpvSYBgxAEL4Ex3/1gOie1ReKq27VfvGcvjsus2euMjr/0CAk9XJWgAepQEbQzGA6hXENtYemQsYV1WyEb4TU99i8HzYbeVhxzpqqkqo+T6R6I6569/M2rj3/EMCrEAOxJwuAG2+E13w/5Q3XMZbLj1hd32roi9rt486tJSbn74dRMwjLubMBVkD2gKxANR60UQO1g8Yjowo/qVDLxJ0Wa9NgJyOPTCuxunJS1+si/iac3Hrvr7z0vE/94c99I9lhOD6wiy6CLz4oHBc+eMkj/vkvfOYP1qujW0J3erpID7N60V7q8/bAdAJuujx9t5x+CcQNepQMJEgBVAc+mjOiSukTOTiqaoKbTqAaDkRD7cjeNMtElcs0c2byv47de+ay70rv/+Tfcgf5G2jgttvggivh+PfYy2949jX1bHxzSWFtc+Mh3ArUazPwZw1SzhH+LIB6+bsO0w/mg3dQeWgGk6omFaMZuBrwHhnXMG2gaTBx3sSZiT9oyI9oVb+inxyr3mXt2U2fAMCjt8jH3/0v7MH3/slstmf6Gqndc7ZOnWCRtpiur+C8DHLK2RBh5wAxBgIdeIxICwNgL1C5ISrVjnrS0KyPkIlCyQPQqoJxjY0rMS9ihpq5Swz3znptcsX75HFX/vtsytklwK/D1Xv/mmccPXLJeDq6PnVd8+gjD1HNhKapQQtoYmD85ZylbDAX+iWAc+oZJ1AtAVQVVDXmhJQyseuIW9vomTnMCxYVM8jRJCUjq0lRvj0bb33Jv7z60EfufKX9m6+jhYrbhr3rUycqP5u+HOcvO/nww/S6yaHV/YgZpAwxQl5AM1qajRvA2BxYLMEtQRUdgHgPziB7kBozodvs6XYjlgqTUc3K3vGwTBJSLtImFclqpWhT1F5dih1bvePh//5e2+hfKfuFr1FExc0IAu4P9u6n9N/RLRYrJ04/zHi/o3IOzQkXHRIEohuyr9RLTSzAFkvbF7AyfDYDcYMPCAOIugJxiFSUAikbKfZ4OupZA+oBI4RCyZnKiqrqQTW7SX3+q9+V/Z/80HLXc5OX43aAm8yQSzF53ukTJ+jzLuNpRUmJHDPEBH2EvoeyPHHbAt0GjcOZlDKcvC41YG5Iah4YCTSDT5hC6KDvlLYNbGy0pDagKeEoknOWRZ+lDQXNKqXoNaq87si7rl575y+Bt8EoHgdwC9jdF9Vu1FyWVA+ePnOSeloQMWIXiW0k9wnrI7YI0LdQtiFuQuygKKaGxTwInxPksgxIS417A2eIA0WIAXI0Yi5s7bbsbHWUmCgloVYkRJV5nyXkYrmUaS7yahN/3Wsvf/FZuR8D4TAzRjqStemR6N2kjwvqkVCykkImdYHUJbRN0AZsa4FtncYWOxACVgraJizkIbJ0HcQCSQcgpQxBICUoZVCWQi5GSkrXBTa3WhaLSB8yIkWKqnRRaaMSk1pKelFRXq931Ad+VH72a3wAkMoqxuNZiMGHvmOsoMXIqRC7RNU4fG1ULmOlwzqPn86gmaLF0W3BZNUNZhbi4N+5PObQFhMsAtoPmvUe+mLEYKSgzLXH+QajIiXFNEsfs2SURsyU4p3Yd7siL1l720/9XifwRZ4jcL+5+Y1QnAfvXJjvStcGYqeUqORYiCERu0i/6Ol2WrrNltImrE9YCCxOzYm7C0Qz9B3EhIWEtWHQShr8R+eRFBQ1MDFSGJJ1KUbfZ3Z3exZtoOsTpWRKVhahWJ+UmIrFmI6kXG74rr3X751cgX3i5wdzciu/K1KcT0jpLCdLvdLuZGJXKEnJIdN3gX7e0+0GcpshKZYS/VbP5kPbkFqs79C+x1JBQ0BDhD5Bn9DdQLcTiZ2SgmFUeDehFCFniElZtIm2TXR9ImUDUxejuS6YS8mIIfkU+utC6C79b+EGbv6J3yDnpQk1UgJiGyKaTWm6nULtDdYc3vmBbIpRKVSjCiuGRKXd6OjOJPaug+5GMMVVQilpSSMViZG4Fem2MlaEFDyNn1DGY3Z3FmeFpeQMlZCLoCaoKarqumyMKkeNaYnpGWru2vqfbX/qFz5ImZwEB7fz6Hf++4zTR5z3nXOOEpV+JzM/k1hsDwV67guaDQ0F6yOlz2hIrE0LVQ5o16N9JLWBtEjkrpDmPf12pN2MdLvKfAf6tgKdoFnIcUjwORkhZPouEWMhxkwpRlEjZiNlh1JJLjaNbXhB/+hiWt/3Brv1h5EK3saRnR8S7v+pU875bcHvzyVRCuRgxHmmkowUjzhPVTvSXCm54IpjXIGGBFnAlJwSMdX42iM5kueZfjsSWgi9Q7PgyexsZWJUcvGYCmqGqVIEVIWsQs6K4RFfUzVTMdMqx/YSC3bo4vf89u7/GKLQq1jIf7LZfRx3Io84Vz0r9VDXAxMwW0bBvuAqpfKCWaRs9yAVvhEsDokXFMsZtRoLHu2MsJsJCyi5gVLTz5UYWuZzKFnQYpgpIg5DB06rQk6gRahqz3gyZbayQoyBLvYHNLUHXgkPfGwA8MfM/t3NcHj2laJ2L+KvSxkXwkA+q26gP76CEox+x2hPC0Zmug6jMRSXQQRfD8nXNJNCIrYQW6GkCs+YFIy+U/qukKNDs0OVZd2lOHGgiiWwDJjD+4rZbMbKyipt69mdt9Oitg7wkmUeMG67UcDavv/OvzDT15hxKKbH6b+rBjAisLXtOLkhHDgfVs5bxUpHKRkwLIOvHGKO1OoQdZLDipBDod01YoSSBF1GoKJL+r2k4apCyoPmvcC08ayvrDAbT9CieN+MnMjsq+oBAz70MtGdja2Px5T/8my2TAX6APNd2NmC+TYsdoBseD/F+ymaC5oGSlQipN6IvRE6yFEoCVKvLHYToVNKEmKEPhghKnE5207Z3snszDMpFkopVE5Zn41ZX5kyahqaukGMcUm69w0gx4DqbLlg9q/41Lv/6O/mi/QBMbnSnBwtKlBA4kABUgbxytqeislsQunnaEiEXsjZMZ0aOSmqZeB2WShRSAFiMHIxYhjyXYg2cD4xYhHaTkkFqsoxahzOGXXVsLK6ynQyoaigWYkxjnJJ51/+3fubq+7eCGeZqYn8jNjt5E9+zt1ZO/6JE7kVcfukIEkGamAG9QjGTtDY0vYdWmBrUzDnyNEoURFvZBVKEmzJ9XMeYnwfhBAh62A+KcNOW2ijISKMddnZ8sLK2ozRZA3xjtgnui7Qh+CKloOU0cTij/Vf1ReSdyCgG7/8crl9bNS1yE0i8gwpIglBSyFlo+RE32W8G/qBbQejFaFvFctDHd8FocTBqSsZYn0fhpmLkItRDHbbwm5rqAm+gpALscB4MqWZrJFlRNdn2i7Q9YGujyStfGcNB9qjZ7tTj2MAuONL7F5/1B9D/QmcrDiR/WYyKioDk8yQgpEeY86GcwZlECQmx3xXaPvBYbsOdufGfGGEKJQ80Oo+GtsLJRU725caqlcqxtMZ63v2MRlPEFP6PnJyc5NTZ3ZKprkrzN2f3fmuD+Sv7Y3ar4G8Drj/FWun7vnQ4rdGuP+jI3lFXdk/9Y5rFNZKUada8Aq+DPkiqJKrZe7AyEnoO6G3AWxMQ3TRVDBVVB19gJRsqOfMMAxzntpXiHhyLvR9RyUNu33kzPaCgjvjqubeC07lgIh8rQb4I+A/gpz+cCcveriUOx7MJy+4sP6kr+QeM/k7RNZUZU8p0qRskvPQ/inq0OJJ0ZGC0HVC17MMlW7I7EkIcfh9sRhqAs7pH8qybnfiGI8aZrMpo9EINeHEmW02NrdN8B9Fmv/6k8c+t/UZvn532q4GHgS5BHjgw2285s2z+7sN/0Dl9C5X5FWluO/J2V1e1PaJWOMqT1M3OBGsDGbR9QXVwTmtQN87QoSzxZtbdl6GFPB4fx1TWIbyrs9sLyJbu3MQfx8i71vfKg+d7X88Yfv0Pcvrv13uIcBv/vM1K16q+SJ9mxZ9QUz2UkUud756hq/HB0WqiRmiRUlpKNBNQZPQBRv4zfI5LdiQiJaSOHGId9TjhtX1NaarKzTNiOxc6UP4bA7hZ4vxwTuef0H/kV+4S3g6z6H/w3VTMOfFxT2oP2DV+LlSj64RqZ+DuStU5XDJNsvJRLOSk5GLomqoGtjg/MJQK4sIvhLqUc1oPKIZ11SjkXlfnxHvP5Y1v0+6eLeIdD9+519/ddR5OuM/zw7wssU++dOLT7nFkaquxuODzvwL1OTFqlxR1F2khYMYMzPqoubMTLBlG0xAnOGcM+ekVJUrrvahquszvmn+xrnqw5h+SOaLz7/rZ95Y5MW3fVVv6GkDuAvke4GrgFt+Gj64Cdd/dL8v+/buEziUi1ymapeqyCEzOWxqhzHWTRgLeBFRxFpxnHTOPeq926kav+Hr6kHv63t9Y1/au/nIzps+/IjdCdwD9t5z9v+Wv8rwbJBXAr8I/NbRQ3z24GpTuzJqrDSdl71m1QFnbk1ggpgTxHAsnNeT3vsTrtEgUud5JHx63oWvXPQlbv48vPM+4O+x+X+odzEEYMLQ7l1neCIVC3J0db9cfWQvF4knSJHTbWI0HdmR87wZ2L/+0/u/nmz2dTf6RxrnvtHyjWR5Ug83/r8Y/xc+VG/HMXAjsQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyNi0wNC0wNVQxNzo0MTo1OSswMDowMI9DWKMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjYtMDQtMDVUMTc6NDE6NTkrMDA6MDD+HuAfAAAAAElFTkSuQmCC" alt="Crystal Blocks">
+    <span>Crystal Blocks</span>
+  </a>
+  <ul class="nv-lk">
+    <li><a href="#worlds">Worlds</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pass">Crystal Pass</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="support.html">Support</a></li>
+  </ul>
+  <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="nv-dl">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    App Store
+  </a>
+</div>
 </nav>
 
-<!-- âââ Hero âââ -->
 <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-content">
-        <div class="badge">Now Available on the App Store</div>
-        <h1><span class="grad">Crystal Blocks</span></h1>
-        <p class="hero-sub">A premium block puzzle game wrapped in a world of shimmering gems. Place, clear, combo, and climb through six breathtaking crystal worlds.</p>
-        <div class="hero-actions">
-            <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="btn-primary">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-                Download Free
-            </a>
-            <a href="#features" class="btn-ghost">Explore Features</a>
-        </div>
-        <div class="hero-stats">
-            <div class="hero-stat"><div class="hero-stat-num">300</div><div class="hero-stat-label">Story Levels</div></div>
-            <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label">Crystal Worlds</div></div>
-            <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Game Modes</div></div>
-            <div class="hero-stat"><div class="hero-stat-num">30+</div><div class="hero-stat-label">Cosmetics</div></div>
-        </div>
-    </div>
-</section>
-
-<!-- âââ Features âââ -->
-<section class="features" id="features">
-    <div class="container">
-        <div class="section-header">
-            <div class="section-tag">Game Modes</div>
-            <div class="section-title">Five ways to play</div>
-            <div class="section-desc">From a 300-level campaign to daily puzzles and live tournaments, there is always a new challenge.</div>
-        </div>
-        <div class="features-grid">
-            <div class="f-card">
-                <div class="f-icon blue">&#x1F48E;</div>
-                <h3>Story Mode</h3>
-                <p>Journey through 300 levels across six handcrafted crystal worlds. Each introduces new obstacles, crystal skins, and gem rewards.</p>
-            </div>
-            <div class="f-card">
-                <div class="f-icon purple">&#x267E;&#xFE0F;</div>
-                <h3>Endless Mode</h3>
-                <p>How far can you go? Face rising difficulty with frozen rows, ice blocks, and stone obstacles. Build combos up to 5x and trigger Fever Mode.</p>
-            </div>
-            <div class="f-card">
-                <div class="f-icon green">&#x1F4C5;</div>
-                <h3>Daily Challenge</h3>
-                <p>A new puzzle every day with identical pieces for every player. Maintain your streak for escalating rewards. Track it from your Lock Screen.</p>
-            </div>
-            <div class="f-card">
-                <div class="f-icon red">&#x2694;&#xFE0F;</div>
-                <h3>PvP Challenge</h3>
-                <p>Challenge friends via share link and compete head-to-head on identical boards. Beat their score to earn bonus gems.</p>
-            </div>
-            <div class="f-card">
-                <div class="f-icon gold">&#x1F3C6;</div>
-                <h3>Tournaments</h3>
-                <p>Enter bracket-style competitions with gem entry fees and prize pools. Top 3 finishers earn gems and bragging rights.</p>
-            </div>
-            <div class="f-card">
-                <div class="f-icon teal">&#x1F3A8;</div>
-                <h3>Customize Everything</h3>
-                <p>Unlock block skins, animated backgrounds, and particle effects. From Classic Crystal to Prismatic Diamond, make the game yours.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- âââ Worlds âââ -->
-<section class="worlds" id="worlds">
-    <div class="worlds-bg"></div>
-    <div class="container">
-        <div class="section-header">
-            <div class="section-tag">Six Crystal Worlds</div>
-            <div class="section-title">Explore breathtaking worlds</div>
-            <div class="section-desc">Each world features its own video backgrounds, crystal theme, and unique challenges.</div>
-        </div>
-        <div class="worlds-grid">
-            <div class="w-card">
-                <div class="w-card-bg" style="background:linear-gradient(135deg,#4a5fc1 0%,#1a237e 50%,#0d1445 100%)"></div>
-                <div class="w-card-overlay"></div>
-                <div class="w-card-content"><div class="w-card-num">World 1</div><div class="w-card-name">Crystal Cavern</div><div class="w-card-sub">Where it all begins</div></div>
-            </div>
-            <div class="w-card">
-                <div class="w-card-bg" style="background:linear-gradient(135deg,#4caf50 0%,#1b5e20 50%,#0a2e10 100%)"></div>
-                <div class="w-card-overlay"></div>
-                <div class="w-card-content"><div class="w-card-num">World 2</div><div class="w-card-name">Emerald Forest</div><div class="w-card-sub">Ancient enchanted woods</div></div>
-            </div>
-            <div class="w-card">
-                <div class="w-card-bg" style="background:linear-gradient(135deg,#29b6f6 0%,#0277bd 50%,#01579b 100%)"></div>
-                <div class="w-card-overlay"></div>
-                <div class="w-card-content"><div class="w-card-num">World 3</div><div class="w-card-name">Sapphire Ocean</div><div class="w-card-sub">Deep beneath the waves</div></div>
-            </div>
-            <div class="w-card">
-                <div class="w-card-bg" style="background:linear-gradient(135deg,#ab47bc 0%,#6a1b9a 50%,#311b92 100%)"></div>
-                <div class="w-card-overlay"></div>
-                <div class="w-card-content"><div class="w-card-num">World 4</div><div class="w-card-name">Amethyst Peaks</div><div class="w-card-sub">Towering crystal summits</div></div>
-            </div>
-            <div class="w-card">
-                <div class="w-card-bg" style="background:linear-gradient(135deg,#ff9800 0%,#e65100 50%,#bf360c 100%)"></div>
-                <div class="w-card-overlay"></div>
-                <div class="w-card-content"><div class="w-card-num">World 5</div><div class="w-card-name">Topaz Desert</div><div class="w-card-sub">Scorching sands</div></div>
-            </div>
-            <div class="w-card">
-                <div class="w-card-bg" style="background:linear-gradient(135deg,#cfd8dc 0%,#78909c 50%,#37474f 100%)"></div>
-                <div class="w-card-overlay"></div>
-                <div class="w-card-content"><div class="w-card-num">World 6</div><div class="w-card-name">Diamond Palace</div><div class="w-card-sub">The final challenge</div></div>
-            </div>
-        </div>
-        <div class="w-stats">
-            <div><div class="w-stat-num">300</div><div class="w-stat-label">Story Levels</div></div>
-            <div><div class="w-stat-num">30+</div><div class="w-stat-label">Cosmetics</div></div>
-            <div><div class="w-stat-num">4</div><div class="w-stat-label">Power-ups</div></div>
-            <div><div class="w-stat-num">13</div><div class="w-stat-label">Achievements</div></div>
-        </div>
-    </div>
-</section>
-
-<!-- âââ Crystal Pass âââ -->
-<section class="pass" id="pass">
-    <div class="pass-card">
-        <div class="pass-content">
-            <div class="pass-tag">Premium</div>
-            <div class="pass-title">Crystal Pass</div>
-            <p class="pass-desc">Unlock the ultimate Crystal Blocks experience. Play ad-free, earn daily gems, and stand out with exclusive cosmetics.</p>
-            <ul class="pass-perks">
-                <li>Ad-free gameplay everywhere</li>
-                <li>25 bonus gems every day</li>
-                <li>Exclusive Galaxy Opal block skin</li>
-                <li>Extra power-up slot in every game</li>
-                <li>1.5x tournament score multiplier</li>
-            </ul>
-        </div>
-        <div class="pass-visual">
-            <div class="pass-gem">&#x1F48E;</div>
-        </div>
-    </div>
-</section>
-
-<!-- âââ CTA âââ -->
-<section class="cta">
-    <div class="cta-box">
-        <h2>Start your crystal journey</h2>
-        <p>Download Crystal Blocks free and discover six worlds of shimmering puzzles.</p>
-        <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="btn-primary">
-            <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-            Download Free on the App Store
-        </a>
-    </div>
-</section>
-
-<footer>
-    <div class="footer-inner">
-        <span class="footer-copy">&copy; 2026 Crystal Blocks. All rights reserved.</span>
-        <ul class="footer-links">
-            <li><a href="privacy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Service</a></li>
-            <li><a href="support.html">Support</a></li>
-        </ul>
-    </div>
-</footer>
-
-<script>
-// Nav scroll effect
-window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40)});
-
-// Floating crystal particles
-(function(){
-    const c=document.getElementById('particles'),ctx=c.getContext('2d');
-    let w,h,particles=[];
-    function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
-    window.addEventListener('resize',resize);resize();
-    for(let i=0;i<60;i++){
-        particles.push({
-            x:Math.random()*w,y:Math.random()*h,
-            r:Math.random()*2+0.5,
-            dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.3,
-            hue:180+Math.random()*80,alpha:Math.random()*0.4+0.1
-        });
-    }
-    function draw(){
-        ctx.clearRect(0,0,w,h);
-        particles.forEach(p=>{
-            p.x+=p.dx;p.y+=p.dy;
-            if(p.x<0)p.x=w;if(p.x>w)p.x=0;
-            if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-            ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fillStyle=`hsla(${p.hue},70%,70%,${p.alpha})`;ctx.fill();
-        });
-        // Draw faint connections
-        for(let i=0;i<particles.length;i++){
-            for(let j=i+1;j<particles.length;j++){
-                const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
-                const dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<120){
-                    ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
-                    ctx.strokeStyle=`rgba(98,212,247,${0.03*(1-dist/120)})`;ctx.stroke();
-                }
-            }
-        }
-        requestAnimationFrame(draw);
-    }
-    draw();
-})();
-
-// Scroll reveal
-const observer=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});
-},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.f-card,.w-card,.pass-card,.cta-box').forEach(el=>{
-    el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.6s cubic-bezier(.4,0,.2,1),transform 0.6s cubic-bezier(.4,0,.2,1)';
-    observer.observe(el);
-});
-</script>
-</body>
-</html>
+<div class="container hero-c" data-r>
+  <div class="hero-badge"><span class="hero-dot"></span>Free on the App Store</div>
+  <h1>Match. Clear.<br><em>Conquer.</em></h1>
+  <p class="hero-p">A block puzzle game wrapped in shimmering gems. Drop pieces, clear lines, chain combos, and climb through six crystal worlds.</p>
+  <div class="hero-act">
+    <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="btn-g">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download Free
+    </a>
+    <a href="#worlds" class="btn-o">Explore Worlds</a>
+  </div>
+  <div class="hero-trust">
+    <div class="tr-i"><div class="tr-n">6</div><div class="tr-l">Crystal Worlds</div></div>
+    <div class="tr-i"><div class="tr-n">300+</div><div class="tr-l">Levels</div></div>
+    <div class="tr-i"><div class="tr-n">24</div><div class="tr-l">Power-Ups</div></div>
