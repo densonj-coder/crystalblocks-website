@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Blocks - Premium Block Puzzle Game</title>
+    <meta name="description" content="Crystal Blocks is a premium block puzzle game with stunning crystal worlds, daily challenges, tournaments, and PvP. Available on the App Store.">
+    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg:#060a14;--bg2:#0c1224;
+            --accent:#62d4f7;--accent2:#a78bfa;--accent3:#34d399;--gold:#f5c542;
+            --text:#e2e8f0;--text2:#94a3b8;--text3:#475569;
+            --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.07);
+            --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+
+        /* âââ Canvas Particles âââ */
+        #particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.5}
+
+        /* âââ Nav âââ */
+        nav{position:fixed;top:0;width:100%;z-index:200;padding:14px 0;transition:all .4s cubic-bezier(.4,0,.2,1)}
+        nav.scrolled{background:rgba(6,10,20,0.92);backdrop-filter:blur(24px) saturate(1.4);border-bottom:1px solid var(--border)}
+        .nav-inner{max-width:1140px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
+        .logo{font-size:18px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-links{display:flex;gap:32px;list-style:none}
+        .nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.3px;transition:color .25s}
+        .nav-links a:hover{color:var(--text)}
+        .nav-cta{padding:8px 20px;background:linear-gradient(135deg,var(--accent),#3b82f6);color:#fff;font-weight:600;font-size:12px;border-radius:100px;text-decoration:none;letter-spacing:0.3px;transition:transform .2s,box-shadow .2s}
+        .nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(98,212,247,0.3)}
+
+        /* âââ Hero âââ */
+        .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:140px 24px 100px}
+        .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(98,212,247,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 30% 70%,rgba(167,139,250,0.05) 0%,transparent 50%),radial-gradient(ellipse 50% 50% at 80% 20%,rgba(52,211,153,0.04) 0%,transparent 50%)}
+        .hero-glow{position:absolute;width:600px;height:600px;top:10%;left:50%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(98,212,247,0.08),transparent 70%);filter:blur(80px);animation:pulse 8s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:0.6;transform:translateX(-50%) scale(1)}50%{opacity:1;transform:translateX(-50%) scale(1.15)}}
+        .hero-content{position:relative;z-index:10;max-width:680px}
+        .badge{display:inline-flex;align-items:center;gap:6px;margin-bottom:28px;padding:7px 18px;border-radius:100px;font-size:11px;font-weight:600;color:var(--gold);border:1px solid rgba(245,197,66,0.25);background:rgba(245,197,66,0.06);letter-spacing:1.2px;text-transform:uppercase}
+        .badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s ease-in-out infinite}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+        .hero h1{font-size:clamp(48px,8vw,80px);font-weight:900;letter-spacing:-3px;line-height:0.95;margin-bottom:24px}
+        .hero h1 .grad{background:linear-gradient(135deg,#fff 0%,var(--accent) 30%,var(--accent2) 60%,var(--accent3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:shimmer 6s ease-in-out infinite}
+        @keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        .hero-sub{font-size:17px;font-weight:400;color:var(--text2);max-width:480px;margin:0 auto 40px;line-height:1.7}
+        .hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+        .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:linear-gradient(135deg,var(--accent),#3b82f6);color:#fff;font-weight:700;font-size:15px;border-radius:100px;text-decoration:none;transition:all .25s;box-shadow:0 4px 28px rgba(98,212,247,0.2),inset 0 1px 0 rgba(255,255,255,0.15)}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(98,212,247,0.35),inset 0 1px 0 rgba(255,255,255,0.15)}
+        .btn-primary svg{width:20px;height:20px}
+        .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:var(--glass2);color:var(--text);font-weight:600;font-size:15px;border-radius:100px;text-decoration:none;border:1px solid var(--border2);transition:all .25s;backdrop-filter:blur(8px)}
+        .btn-ghost:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.15);transform:translateY(-2px)}
+        .hero-stats{display:flex;justify-content:center;gap:40px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border)}
+        .hero-stat{text-align:center}
+        .hero-stat-num{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero-stat-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+        /* âââ Features âââ */
+        .features{padding:120px 24px;position:relative}
+        .features::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+        .container{max-width:1140px;margin:0 auto}
+        .section-header{text-align:center;margin-bottom:64px}
+        .section-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;padding:6px 14px;border-radius:100px;background:rgba(98,212,247,0.06);border:1px solid rgba(98,212,247,0.12)}
+        .section-title{font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px}
+        .section-desc{color:var(--text2);font-size:16px;max-width:500px;margin:0 auto}
+        .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        .f-card{position:relative;background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:36px 28px;transition:all .35s cubic-bezier(.4,0,.2,1);overflow:hidden}
+        .f-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);transition:background .35s}
+        .f-card:hover{border-color:var(--border2);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+        .f-card:hover::before{background:linear-gradient(90deg,transparent,rgba(98,212,247,0.2),transparent)}
+        .f-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;position:relative}
+        .f-icon.blue{background:rgba(98,212,247,0.08);border:1px solid rgba(98,212,247,0.15)}
+        .f-icon.purple{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.15)}
+        .f-icon.green{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.15)}
+        .f-icon.gold{background:rgba(245,197,66,0.08);border:1px solid rgba(245,197,66,0.15)}
+        .f-icon.red{background:rgba(251,113,133,0.08);border:1px solid rgba(251,113,133,0.15)}
+        .f-icon.teal{background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.15)}
+        .f-card h3{font-size:17px;font-weight:700;margin-bottom:8px;letter-spacing:-0.3px}
+        .f-card p{color:var(--text2);font-size:13.5px;line-height:1.65}
+
+        /* âââ Worlds âââ */
+        .worlds{padding:120px 24px;position:relative;overflow:hidden}
+        .worlds-bg{position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(12,18,36,1) 30%,rgba(12,18,36,1) 70%,var(--bg) 100%)}
+        .worlds .container{position:relative;z-index:2}
+        .worlds-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:56px}
+        .w-card{position:relative;aspect-ratio:3/4.5;border-radius:18px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1)}
+        .w-card:hover{transform:translateY(-8px) scale(1.02);border-color:rgba(255,255,255,0.15);box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+        .w-card-bg{position:absolute;inset:0;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+        .w-card:hover .w-card-bg{transform:scale(1.08)}
+        .w-card-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0.6) 80%,rgba(0,0,0,0.85) 100%)}
+        .w-card-content{position:absolute;bottom:0;left:0;right:0;padding:16px 14px}
+        .w-card-num{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;opacity:0.5;margin-bottom:2px}
+        .w-card-name{font-size:13px;font-weight:700;letter-spacing:-0.2px}
+        .w-card-sub{font-size:10px;color:var(--text2);margin-top:2px}
+        .w-stats{display:flex;justify-content:center;gap:56px;margin-top:56px}
+        .w-stat-num{font-size:36px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .w-stat-label{font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:1px;text-align:center;margin-top:4px}
+
+        /* âââ Crystal Pass âââ */
+        .pass{padding:120px 24px}
+        .pass-card{max-width:900px;margin:0 auto;background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(98,212,247,0.04));border:1px solid rgba(167,139,250,0.15);border-radius:24px;padding:60px 48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+        .pass-card::before{content:'';position:absolute;top:-50%;right:-20%;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,0.08),transparent);filter:blur(60px)}
+        .pass-content{position:relative;z-index:2}
+        .pass-tag{display:inline-block;font-size:10px;font-weight:700;color:var(--accent2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;padding:5px 12px;border-radius:100px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2)}
+        .pass-title{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:12px}
+        .pass-desc{color:var(--text2);font-size:14px;margin-bottom:28px;line-height:1.7}
+        .pass-perks{list-style:none;display:flex;flex-direction:column;gap:12px}
+        .pass-perks li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text2)}
+        .pass-perks li::before{content:'';width:20px;height:20px;border-radius:50%;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+        .pass-visual{position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+        .pass-gem{width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(98,212,247,0.1));border:1px solid rgba(167,139,250,0.2);display:flex;align-items:center;justify-content:center;font-size:72px;animation:float 4s ease-in-out infinite;box-shadow:0 0 80px rgba(167,139,250,0.1)}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+        /* âââ CTA âââ */
+        .cta{padding:80px 24px 120px}
+        .cta-box{max-width:800px;margin:0 auto;text-align:center;background:linear-gradient(135deg,rgba(98,212,247,0.04),rgba(167,139,250,0.04));border:1px solid var(--border);border-radius:28px;padding:72px 40px;position:relative;overflow:hidden}
+        .cta-box::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:500px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(98,212,247,0.06),transparent);filter:blur(60px)}
+        .cta-box h2{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-1px;margin-bottom:12px;position:relative;z-index:2}
+        .cta-box p{color:var(--text2);font-size:16px;margin-bottom:32px;position:relative;z-index:2}
+
+        /* âââ Footer âââ */
+        footer{padding:48px 24px;border-top:1px solid var(--border)}
+        .footer-inner{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+        .footer-links{display:flex;gap:28px;list-style:none}
+        .footer-links a{color:var(--text3);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+        .footer-links a:hover{color:var(--text2)}
+        .footer-copy{font-size:13px;color:var(--text3)}
+
+        /* âââ Responsive âââ */
+        @media(max-width:1024px){.features-grid{grid-template-columns:repeat(2,1fr)}.pass-card{grid-template-columns:1fr;text-align:center}.pass-perks{align-items:center}}
+        @media(max-width:768px){
+            .nav-links{display:none}.nav-cta{display:none}
+            .worlds-grid{grid-template-columns:repeat(3,1fr)}
+            .features-grid{grid-template-columns:1fr}
+            .hero-stats{gap:24px}
+            .w-stats{gap:32px}
+            section,.features,.worlds,.pass,.cta{padding:80px 16px}
+            .pass-card{padding:40px 24px}
+            .cta-box{padding:48px 24px}
+        }
+        @media(max-width:480px){
+            .worlds-grid{grid-template-columns:repeat(2,1fr)}
+            .hero-stats{flex-direction:column;gap:16px}
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav id="nav">
+    <div class="nav-inner">
+        <div class="logo">Crystal Blocks</div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#worlds">Worlds</a></li>
+            <li><a href="#pass">Crystal Pass</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="terms.html">Terms</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="nav-cta">Download</a>
+    </div>
+</nav>
+
+<!-- âââ Hero âââ -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+        <div class="badge">Now Available on the App Store</div>
+        <h1><span class="grad">Crystal Blocks</span></h1>
+        <p class="hero-sub">A premium block puzzle game wrapped in a world of shimmering gems. Place, clear, combo, and climb through six breathtaking crystal worlds.</p>
+        <div class="hero-actions">
+            <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="btn-primary">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download Free
+            </a>
+            <a href="#features" class="btn-ghost">Explore Features</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="hero-stat-num">300</div><div class="hero-stat-label">Story Levels</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label">Crystal Worlds</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Game Modes</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">30+</div><div class="hero-stat-label">Cosmetics</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- âââ Features âââ -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Game Modes</div>
+            <div class="section-title">Five ways to play</div>
+            <div class="section-desc">From a 300-level campaign to daily puzzles and live tournaments, there is always a new challenge.</div>
+        </div>
+        <div class="features-grid">
+            <div class="f-card">
+                <div class="f-icon blue">&#x1F48E;</div>
+                <h3>Story Mode</h3>
+                <p>Journey through 300 levels across six handcrafted crystal worlds. Each introduces new obstacles, crystal skins, and gem rewards.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon purple">&#x267E;&#xFE0F;</div>
+                <h3>Endless Mode</h3>
+                <p>How far can you go? Face rising difficulty with frozen rows, ice blocks, and stone obstacles. Build combos up to 5x and trigger Fever Mode.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon green">&#x1F4C5;</div>
+                <h3>Daily Challenge</h3>
+                <p>A new puzzle every day with identical pieces for every player. Maintain your streak for escalating rewards. Track it from your Lock Screen.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon red">&#x2694;&#xFE0F;</div>
+                <h3>PvP Challenge</h3>
+                <p>Challenge friends via share link and compete head-to-head on identical boards. Beat their score to earn bonus gems.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon gold">&#x1F3C6;</div>
+                <h3>Tournaments</h3>
+                <p>Enter bracket-style competitions with gem entry fees and prize pools. Top 3 finishers earn gems and bragging rights.</p>
+            </div>
+            <div class="f-card">
+                <div class="f-icon teal">&#x1F3A8;</div>
+                <h3>Customize Everything</h3>
+                <p>Unlock block skins, animated backgrounds, and particle effects. From Classic Crystal to Prismatic Diamond, make the game yours.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- âââ Worlds âââ -->
+<section class="worlds" id="worlds">
+    <div class="worlds-bg"></div>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Six Crystal Worlds</div>
+            <div class="section-title">Explore breathtaking worlds</div>
+            <div class="section-desc">Each world features its own video backgrounds, crystal theme, and unique challenges.</div>
+        </div>
+        <div class="worlds-grid">
+            <div class="w-card">
+                <div class="w-card-bg" style="background:linear-gradient(135deg,#4a5fc1 0%,#1a237e 50%,#0d1445 100%)"></div>
+                <div class="w-card-overlay"></div>
+                <div class="w-card-content"><div class="w-card-num">World 1</div><div class="w-card-name">Crystal Cavern</div><div class="w-card-sub">Where it all begins</div></div>
+            </div>
+            <div class="w-card">
+                <div class="w-card-bg" style="background:linear-gradient(135deg,#4caf50 0%,#1b5e20 50%,#0a2e10 100%)"></div>
+                <div class="w-card-overlay"></div>
+                <div class="w-card-content"><div class="w-card-num">World 2</div><div class="w-card-name">Emerald Forest</div><div class="w-card-sub">Ancient enchanted woods</div></div>
+            </div>
+            <div class="w-card">
+                <div class="w-card-bg" style="background:linear-gradient(135deg,#29b6f6 0%,#0277bd 50%,#01579b 100%)"></div>
+                <div class="w-card-overlay"></div>
+                <div class="w-card-content"><div class="w-card-num">World 3</div><div class="w-card-name">Sapphire Ocean</div><div class="w-card-sub">Deep beneath the waves</div></div>
+            </div>
+            <div class="w-card">
+                <div class="w-card-bg" style="background:linear-gradient(135deg,#ab47bc 0%,#6a1b9a 50%,#311b92 100%)"></div>
+                <div class="w-card-overlay"></div>
+                <div class="w-card-content"><div class="w-card-num">World 4</div><div class="w-card-name">Amethyst Peaks</div><div class="w-card-sub">Towering crystal summits</div></div>
+            </div>
+            <div class="w-card">
+                <div class="w-card-bg" style="background:linear-gradient(135deg,#ff9800 0%,#e65100 50%,#bf360c 100%)"></div>
+                <div class="w-card-overlay"></div>
+                <div class="w-card-content"><div class="w-card-num">World 5</div><div class="w-card-name">Topaz Desert</div><div class="w-card-sub">Scorching sands</div></div>
+            </div>
+            <div class="w-card">
+                <div class="w-card-bg" style="background:linear-gradient(135deg,#cfd8dc 0%,#78909c 50%,#37474f 100%)"></div>
+                <div class="w-card-overlay"></div>
+                <div class="w-card-content"><div class="w-card-num">World 6</div><div class="w-card-name">Diamond Palace</div><div class="w-card-sub">The final challenge</div></div>
+            </div>
+        </div>
+        <div class="w-stats">
+            <div><div class="w-stat-num">300</div><div class="w-stat-label">Story Levels</div></div>
+            <div><div class="w-stat-num">30+</div><div class="w-stat-label">Cosmetics</div></div>
+            <div><div class="w-stat-num">4</div><div class="w-stat-label">Power-ups</div></div>
+            <div><div class="w-stat-num">13</div><div class="w-stat-label">Achievements</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- âââ Crystal Pass âââ -->
+<section class="pass" id="pass">
+    <div class="pass-card">
+        <div class="pass-content">
+            <div class="pass-tag">Premium</div>
+            <div class="pass-title">Crystal Pass</div>
+            <p class="pass-desc">Unlock the ultimate Crystal Blocks experience. Play ad-free, earn daily gems, and stand out with exclusive cosmetics.</p>
+            <ul class="pass-perks">
+                <li>Ad-free gameplay everywhere</li>
+                <li>25 bonus gems every day</li>
+                <li>Exclusive Galaxy Opal block skin</li>
+                <li>Extra power-up slot in every game</li>
+                <li>1.5x tournament score multiplier</li>
+            </ul>
+        </div>
+        <div class="pass-visual">
+            <div class="pass-gem">&#x1F48E;</div>
+        </div>
+    </div>
+</section>
+
+<!-- âââ CTA âââ -->
+<section class="cta">
+    <div class="cta-box">
+        <h2>Start your crystal journey</h2>
+        <p>Download Crystal Blocks free and discover six worlds of shimmering puzzles.</p>
+        <a href="https://apps.apple.com/app/crystal-blocks/idYOUR_APP_ID" class="btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download Free on the App Store
+        </a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <span class="footer-copy">&copy; 2026 Crystal Blocks. All rights reserved.</span>
+        <ul class="footer-links">
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script>
+// Nav scroll effect
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40)});
+
+// Floating crystal particles
+(function(){
+    const c=document.getElementById('particles'),ctx=c.getContext('2d');
+    let w,h,particles=[];
+    function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+    window.addEventListener('resize',resize);resize();
+    for(let i=0;i<60;i++){
+        particles.push({
+            x:Math.random()*w,y:Math.random()*h,
+            r:Math.random()*2+0.5,
+            dx:(Math.random()-0.5)*0.3,dy:(Math.random()-0.5)*0.3,
+            hue:180+Math.random()*80,alpha:Math.random()*0.4+0.1
+        });
+    }
+    function draw(){
+        ctx.clearRect(0,0,w,h);
+        particles.forEach(p=>{
+            p.x+=p.dx;p.y+=p.dy;
+            if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+            if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+            ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle=`hsla(${p.hue},70%,70%,${p.alpha})`;ctx.fill();
+        });
+        // Draw faint connections
+        for(let i=0;i<particles.length;i++){
+            for(let j=i+1;j<particles.length;j++){
+                const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+                const dist=Math.sqrt(dx*dx+dy*dy);
+                if(dist<120){
+                    ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);
+                    ctx.strokeStyle=`rgba(98,212,247,${0.03*(1-dist/120)})`;ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.f-card,.w-card,.pass-card,.cta-box').forEach(el=>{
+    el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.6s cubic-bezier(.4,0,.2,1),transform 0.6s cubic-bezier(.4,0,.2,1)';
+    observer.observe(el);
+});
+</script>
+</body>
+</html>
