@@ -323,7 +323,7 @@ body::after {
   width: 620px;
   height: 620px;
   z-index: 5;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 .gem-glow {
   position: absolute;
@@ -356,15 +356,16 @@ body::after {
 /* Orbiting game pieces */
 .orbit-container {
   position: absolute;
-  inset: -40px;
+  inset: -120px;
   z-index: 6;
   pointer-events: none;
+  opacity: 1;
 }
 .orbit-piece {
   position: absolute;
-  width: 52px;
-  height: 52px;
-  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 18px rgba(233, 196, 106, 0.5)) drop-shadow(0 4px 12px rgba(0,0,0,0.5));
 }
 .orbit-piece img {
   width: 100%;
@@ -372,67 +373,69 @@ body::after {
   object-fit: contain;
 }
 .orbit-piece-1 {
-  top: 8%;
-  left: 18%;
+  top: 5%;
+  left: 10%;
   animation: orbit1 12s ease-in-out infinite;
+  width: 90px;
+  height: 90px;
 }
 .orbit-piece-2 {
-  top: 15%;
-  right: 10%;
+  top: 8%;
+  right: 5%;
   animation: orbit2 14s ease-in-out infinite;
-  width: 44px;
-  height: 44px;
+  width: 70px;
+  height: 70px;
 }
 .orbit-piece-3 {
-  bottom: 20%;
-  left: 8%;
+  bottom: 15%;
+  left: 2%;
   animation: orbit3 16s ease-in-out infinite;
-  width: 48px;
-  height: 48px;
+  width: 75px;
+  height: 75px;
 }
 .orbit-piece-4 {
-  bottom: 8%;
-  right: 18%;
+  bottom: 5%;
+  right: 12%;
   animation: orbit4 13s ease-in-out infinite;
-  width: 40px;
-  height: 40px;
+  width: 65px;
+  height: 65px;
 }
 .orbit-piece-5 {
-  top: 50%;
-  right: 2%;
+  top: 48%;
+  right: -5%;
   animation: orbit5 15s ease-in-out infinite;
-  width: 46px;
-  height: 46px;
+  width: 72px;
+  height: 72px;
 }
 @keyframes orbit1 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(20px, 15px) rotate(12deg); }
-  50% { transform: translate(-10px, 30px) rotate(-8deg); }
-  75% { transform: translate(15px, -10px) rotate(6deg); }
+  25% { transform: translate(35px, 25px) rotate(15deg); }
+  50% { transform: translate(-15px, 45px) rotate(-10deg); }
+  75% { transform: translate(25px, -15px) rotate(8deg); }
 }
 @keyframes orbit2 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(-18px, 20px) rotate(-10deg); }
-  50% { transform: translate(12px, -15px) rotate(15deg); }
-  75% { transform: translate(-8px, 10px) rotate(-5deg); }
+  25% { transform: translate(-30px, 35px) rotate(-12deg); }
+  50% { transform: translate(20px, -25px) rotate(18deg); }
+  75% { transform: translate(-12px, 15px) rotate(-7deg); }
 }
 @keyframes orbit3 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(15px, -20px) rotate(8deg); }
-  50% { transform: translate(-20px, 10px) rotate(-12deg); }
-  75% { transform: translate(10px, 15px) rotate(4deg); }
+  25% { transform: translate(25px, -35px) rotate(10deg); }
+  50% { transform: translate(-35px, 15px) rotate(-15deg); }
+  75% { transform: translate(15px, 25px) rotate(6deg); }
 }
 @keyframes orbit4 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(-12px, -18px) rotate(-6deg); }
-  50% { transform: translate(18px, 12px) rotate(10deg); }
-  75% { transform: translate(-15px, -8px) rotate(-8deg); }
+  25% { transform: translate(-20px, -30px) rotate(-8deg); }
+  50% { transform: translate(30px, 20px) rotate(12deg); }
+  75% { transform: translate(-25px, -12px) rotate(-10deg); }
 }
 @keyframes orbit5 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(10px, 20px) rotate(14deg); }
-  50% { transform: translate(-15px, -12px) rotate(-10deg); }
-  75% { transform: translate(20px, -5px) rotate(6deg); }
+  25% { transform: translate(15px, 35px) rotate(16deg); }
+  50% { transform: translate(-25px, -18px) rotate(-12deg); }
+  75% { transform: translate(35px, -8px) rotate(8deg); }
 }
 .section {
   padding: 140px 24px;
